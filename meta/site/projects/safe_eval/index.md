@@ -1,11 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-<!-- and it's easy to individually load additional languages -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-
-<script>hljs.highlightAll();</script>
-
 # A new sandbox for Odoo
 
 You can find the source code for this project [here](https://github.com/keyboard-slayer/odoo-eval/blob/master-safe_eval_redo-joda/odoo/tools/safe_eval.py)
@@ -35,7 +27,7 @@ Here are the steps that the original implementation takes to run the code:
 2. It will check if you done use any forbidden operations, such as:
     - Making an import statement[*](https://github.com/odoo/odoo/blob/0b308699d089dc2f2b39c756ce05e58003c1b2f3/odoo/tools/safe_eval.py#L81).
     - Modifing or deleting the attribute of an object[*](https://github.com/odoo/odoo/blob/0b308699d089dc2f2b39c756ce05e58003c1b2f3/odoo/tools/safe_eval.py#L84).
-    - Modifng or deleting a global variable[*](https://github.com/odoo/odoo/blob/0b308699d089dc2f2b39c756ce05e58003c1b2f3/odoo/tools/safe_eval.py#L86).
+    - Modifing or deleting a global variable[*](https://github.com/odoo/odoo/blob/0b308699d089dc2f2b39c756ce05e58003c1b2f3/odoo/tools/safe_eval.py#L86).
 
 3. It will check if you don't use any variable with a double underscore in the name (called dunder names)[*](https://github.com/odoo/odoo/blob/0b308699d089dc2f2b39c756ce05e58003c1b2f3/odoo/tools/safe_eval.py#L202-L205).
 
@@ -49,7 +41,9 @@ What if I told you by getting a `Response` object, you could execute arbitrary c
 
 > **Note**: If you are interested, I made a [docker-compose.yml](./docker-compose.yml) that includes the odoo source code exactly before this patch was commited. You can also revert the commit and see the vulnerability in action.
 
-<pre><code class="python">raise UserError(env['ir.http']._redirect('/').json_module.codecs.sys.modules['builtins'].open('/etc/passwd').read())</code></pre>
+``` python
+raise UserError(env['ir.http']._redirect('/').json_module.codecs.sys.modules['builtins'].open('/etc/passwd').read())
+```
 
 Let's dissect this code:
 
