@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schemas.cute.engineering/stable/cutekit.manifest.project.v1",
+    "id": "keyboard-slayer/portfolio",
+    "type": "project",
+    "description": "My portfolio",
+    "extern": {
+        "cute-engineering/cat": {
+            "git": "https://github.com/cute-engineering/cat.git",
+            "tag": "main"
+        }
+    }
+}
